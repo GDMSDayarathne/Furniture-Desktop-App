@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const roomDesignSchema = new mongoose.Schema(
   {
     name: { 
@@ -9,7 +8,7 @@ const roomDesignSchema = new mongoose.Schema(
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Admin',
       required: true
     },
     dimensions: {
@@ -32,7 +31,6 @@ const roomDesignSchema = new mongoose.Schema(
       trim: { type: String, default: '#FFFFFF' }
     },
     customLayout: {
-      // For storing custom room shapes as polygon points or similar
       points: [{ 
         x: Number, 
         y: Number 
@@ -61,7 +59,6 @@ const roomDesignSchema = new mongoose.Schema(
     },
     preview2DUrl: String,
     preview3DUrl: String,
-    // Rating field
     ratings: [{
       userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -90,7 +87,7 @@ const roomDesignSchema = new mongoose.Schema(
 roomDesignSchema.pre('save', function(next) {
   if (this.ratings && this.ratings.length > 0) {
     const sum = this.ratings.reduce((total, rating) => total + rating.value, 0);
-    this.averageRating = Math.round((sum / this.ratings.length) * 10) / 10;
+    this.averageRating = Math.round((sum / this.ratings.length) * 10) / 10; // Round to 1 decimal place
   } else {
     this.averageRating = 0;
   }
@@ -98,5 +95,4 @@ roomDesignSchema.pre('save', function(next) {
 });
 
 const RoomDesign = mongoose.model('RoomDesign', roomDesignSchema);
-
 module.exports = RoomDesign;

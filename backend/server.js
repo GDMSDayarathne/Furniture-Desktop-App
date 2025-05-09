@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
-const router = require('./routes/router');
+const adminRouter = require('./routes/adminRouter');
 require('dotenv').config();
 
 const app = express();
@@ -17,9 +17,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL || 'http://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');  
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Credentials', true);
   
@@ -50,11 +51,11 @@ const connect = async () => {
     process.exit(1);
   }
 };
-
 connect();
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api', router);
+
+app.use('/api/admin', adminRouter);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });

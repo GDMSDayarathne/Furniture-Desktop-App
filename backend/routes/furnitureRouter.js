@@ -1,13 +1,11 @@
 const express = require('express');
 const furnitureRouter = express.Router();
 const furnitureController = require('../controllers/furnitureController');
-const { authenticate } = require('../middleware/authMiddleware');
+const { authenticate, isAdmin } = require('../middleware/authMiddleware');
 
-furnitureRouter.use(authenticate);
+furnitureRouter.use(authenticate, isAdmin);
 
 furnitureRouter.get('/', furnitureController.getAllFurniture);
-
-furnitureRouter.get('/favorites', furnitureController.getFavoriteFurniture);
 
 furnitureRouter.get('/:id', furnitureController.getFurnitureById);
 
@@ -22,8 +20,6 @@ furnitureRouter.put(
   furnitureController.upload.single('image'),
   furnitureController.updateFurniture
 );
-
-furnitureRouter.patch('/:id/favorite', furnitureController.toggleFavorite);
 
 furnitureRouter.delete('/:id', furnitureController.deleteFurniture);
 

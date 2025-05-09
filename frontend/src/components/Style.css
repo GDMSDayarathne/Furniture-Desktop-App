@@ -2,24 +2,16 @@
   display: flex;
   font-family: "Georgia", serif;
   height: 100vh;
-  background: #46523c;
+  background: #2B2D31;
 }
 
 .sidebar {
   width: 240px;
-  background-color: #46523c;
+  background-color: #2B2D31;
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
-}
-
-.nav-link-dashboard .icon {
-  font-size: 18px;
-  color: white;
-  margin-left: 81px;
-  margin-bottom: 15px;
-  vertical-align: middle;
 }
 
 .sidebar .logo {
@@ -37,20 +29,20 @@
   flex-direction: column;
   text-align: center;
   margin-left: -10px;
-  gap: 15px;
+  gap: 25px;
 }
 
 .nav-link-dashboard {
   text-decoration: none;
   color: white;
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 20px 15px;
   border-radius: 8px;
   transition: background 0.3s;
 }
 
 .nav-link-dashboard:hover {
-  background-color: #62714d;
+  background-color: #898c8e;
 }
 
 .nav-link-dashboard.active {
@@ -61,7 +53,7 @@
 .main-content {
   flex: 1;
   padding: 40px;
-  background-color: #faedcd;
+  background-color: #f7f2eb;
   border-radius: 40px 0 0 40px;
   position: relative;
 }
@@ -73,7 +65,7 @@
 }
 
 .logout-btn-container .logout-btn {
-  background-color: #46523c;
+  background-color: #2B2D31;
   color: white;
   padding: 15px 40px;
   border-radius: 30px;
@@ -87,7 +79,6 @@
   text-align: center;
   border-radius: 10px;
   padding: 30px;
-  background-color: rgb(255, 255, 255);
 }
 
 .dashboard-content h1 {
@@ -111,7 +102,7 @@
 }
 
 .dashboard-card {
-  background-color: #535c45;
+  background-color: #2B2D31;
   color: white;
   padding: 30px 40px;
   border-radius: 10px;
@@ -135,7 +126,7 @@
 }
 
 .view-btn {
-  background-color: #e8edc9;
+  background-color: #f7f2eb;
   color: #333;
   padding: 13px 110px;
   border: none;
@@ -147,4 +138,9 @@
 
 .view-btn:hover {
   background-color: #d1dbb1;
+}
+
+.Admin-login {
+  margin-top: 20px;
+  background-color: #f3f1ed;
 }

@@ -13,26 +13,26 @@ const LogOut = () => {
   return (
     <div className="logout-page">
       <div className="room-navbar">
-        <aside className="sidebar">
-          <div className="logo">LOGO</div>
-          <nav className="nav-links-dashboard">
-            <a href="/dashboard" className="nav-link-dashboard">
-              <FaTachometerAlt className="icon" /> Dashboard
-            </a>
-            <a href="/admin/create-room-design" className="nav-link-dashboard">
-              <FaPlus className="icon" /> Create Designs
-            </a>
-            <a href="/admin/room-designs" className="nav-link-dashboard">
-              <FaThList className="icon" /> My Designs
-            </a>
-            <a href="/admin/furniture/add" className="nav-link-dashboard">
-              <FaCouch className="icon" /> Furniture
-            </a>
-            <a href="/logout" className="nav-link-dashboard active">
-              <FaSignOutAlt className="icon" /> Log Out
-            </a>
-          </nav>
-        </aside>
+      <aside className="sidebar">
+        <div className="logo">LOGO</div>
+        <nav className="nav-links-dashboard">
+          <a href="/dashboard" className="nav-link-dashboard">
+            Dashboard
+          </a>
+          <a href="/admin/create-room-design" className="nav-link-dashboard">
+            Create Designs
+          </a>
+          <a href="/admin/room-designs" className="nav-link-dashboard">
+            My Designs
+          </a>
+          <a href="/admin/furniture/add" className="nav-link-dashboard">
+            Furniture
+          </a>
+          <a href="/logout" className="nav-link-dashboard active">
+            Log Out
+          </a>
+        </nav>
+      </aside>
       </div>
       <main className="logout-main">
         <div className="logout-box">

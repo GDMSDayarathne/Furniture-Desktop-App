@@ -4,8 +4,10 @@ const FurnitureSelector = ({ availableFurniture, onSelectFurniture }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('');
   
+  // Get unique product types for filtering
   const productTypes = ['All', ...new Set(availableFurniture.map(item => item.productType))];
   
+  // Filter furniture based on search term and selected type
   const filteredFurniture = availableFurniture.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -19,6 +21,7 @@ const FurnitureSelector = ({ availableFurniture, onSelectFurniture }) => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row gap-4">
+        {/* Search input */}
         <div className="w-full md:w-2/3">
           <input
             type="text"
@@ -29,6 +32,7 @@ const FurnitureSelector = ({ availableFurniture, onSelectFurniture }) => {
           />
         </div>
         
+        {/* Type filter */}
         <div className="w-full md:w-1/3">
           <select
             value={selectedType}
@@ -42,6 +46,7 @@ const FurnitureSelector = ({ availableFurniture, onSelectFurniture }) => {
         </div>
       </div>
       
+      {/* Furniture items grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {filteredFurniture.map(item => (
           <div 

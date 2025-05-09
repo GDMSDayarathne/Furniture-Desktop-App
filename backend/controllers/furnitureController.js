@@ -2,7 +2,6 @@ const Furniture = require('../models/furnitureModel');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadDir = 'uploads/furniture';
@@ -19,7 +18,6 @@ const storage = multer.diskStorage({
     cb(null, 'furniture-' + uniqueSuffix + ext);
   }
 });
-
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = /jpeg|jpg|png|webp/;
   const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -30,13 +28,11 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('Only image files are allowed!'), false);
   }
 };
-
 const upload = multer({ 
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
   fileFilter: fileFilter
 });
-
 const getAllFurniture = async (req, res) => {
   try {
     const furniture = await Furniture.find().sort({ createdAt: -1 });
@@ -46,21 +42,6 @@ const getAllFurniture = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
-
-const getFavoriteFurniture = async (req, res) => {
-  try {
-    const favoriteFurniture = await Furniture.find({ isFavorite: true }).sort({ createdAt: -1 });
-    res.status(200).json({ 
-      success: true, 
-      count: favoriteFurniture.length, 
-      data: favoriteFurniture 
-    });
-  } catch (error) {
-    console.error('Error fetching favorite furniture items:', error);
-    res.status(500).json({ success: false, message: 'Server error' });
-  }
-};
-
 const getFurnitureById = async (req, res) => {
   try {
     const furniture = await Furniture.findById(req.params.id);
@@ -80,7 +61,6 @@ const getFurnitureById = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
-
 const createFurniture = async (req, res) => {
   try {
     if (!req.file) {
@@ -105,7 +85,6 @@ const createFurniture = async (req, res) => {
       discount: discount ? parseFloat(discount) : 0,
       image: req.file.path.replace(/\\/g, '/'),
       stockCount: stockCount ? parseInt(stockCount) : 0,
-      isFavorite: false,
       createdBy: req.user.userId
     });
     const savedFurniture = await newFurniture.save();
@@ -125,7 +104,6 @@ const createFurniture = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
-
 const updateFurniture = async (req, res) => {
   try {
     const { title, description, productType, price, discount, stockCount } = req.body;
@@ -180,34 +158,6 @@ const updateFurniture = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
-
-const toggleFavorite = async (req, res) => {
-  try {
-    const furniture = await Furniture.findById(req.params.id);
-    
-    if (!furniture) {
-      return res.status(404).json({ success: false, message: 'Furniture item not found' });
-    }
-    
-    furniture.isFavorite = !furniture.isFavorite;
-    await furniture.save();
-    
-    res.status(200).json({
-      success: true,
-      message: `Furniture ${furniture.isFavorite ? 'added to' : 'removed from'} favorites`,
-      data: furniture
-    });
-  } catch (error) {
-    console.error('Error toggling favorite status:', error);
-    
-    if (error.kind === 'ObjectId') {
-      return res.status(400).json({ success: false, message: 'Invalid furniture ID' });
-    }
-    
-    res.status(500).json({ success: false, message: 'Server error' });
-  }
-};
-
 const deleteFurniture = async (req, res) => {
   try {
     const furniture = await Furniture.findById(req.params.id);
@@ -236,14 +186,11 @@ const deleteFurniture = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
-
 module.exports = {
   upload,
   getAllFurniture,
-  getFavoriteFurniture,
   getFurnitureById,
   createFurniture,
   updateFurniture,
-  toggleFavorite,
   deleteFurniture
 };
